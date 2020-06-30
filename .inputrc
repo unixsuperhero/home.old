@@ -1,0 +1,7 @@
+
+
+# command-line auto-completion
+
+## for details on other variables run: man readline
+
+set completion-ignore-case On
