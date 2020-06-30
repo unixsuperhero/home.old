@@ -1,6 +1,14 @@
 
 # My Fundamental Unix Dotfiles
 
+## TO DO ##
+
+** Add shalarm to this repo, because i found a good cli alarm clock...and it's
+very basic...just a shell script and a wav file so i will probably just steal
+and remodel it **
+
+* `git clone https://github.com/jahendrie/shalarm`
+
 ## Goals
 
 * make this repo super modular
