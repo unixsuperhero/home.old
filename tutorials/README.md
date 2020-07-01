@@ -12,9 +12,6 @@ It should contain useful shell features.
   * For example, `!-4:s/install/global/p` (probably doesn't work btw) but there
     is a way to replace install with global 4 cmds up in the history, and
     instead of running the results, just print the command that _would_ run.
-
-
-
-
-
+  * **NOTE:** This is called `history expansion`
+    * [https://www.thegeekstuff.com/2011/08/bash-history-expansion/]
 
