@@ -44,3 +44,12 @@ and remodel it **
 
 * etc...
 
+
+# Tutorials
+
+** Add a tutorials section for command-line tips and tricks that I tend to
+forget about over time. **
+
+* see: `tutorials/README.md`
+
+
