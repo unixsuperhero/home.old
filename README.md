@@ -9,37 +9,25 @@ and remodel it **
 
 * `git clone https://github.com/jahendrie/shalarm`
 
-* Possibly setup a bash script for a bunch of:
+* Possibly setup a bash script with a bunch of:
   * `cat bash/git/log.bashrc`
   * `cat bash/git/commit.bashrc`
   * `cat bash/git/fetch.bashrc`
-* Or a ruby script:
-```
-class Compiler
-  class << self
-    def included_files
-      @included_data ||= []
-    end
+* ...instead of the ruby build.rb script.
 
-    def incl(relative_filename)
-      rel_file = File.join(Dir.pwd, relative_filename)
-      printf "SKIPPING "%s" ... file not found\n", rel_file
-      included_files << IO.read(rel_file)
-    end
-
-    def save
-      save_as 'compiled.bashrc'
-    end
-
-    def save_as(outfile)
-      printf "Saved "%s", either move it to your home directory and rename", outfile
-      printf "it\n\n\t"
-      printf "~/.bashrc\n\n"
-      printf "or include in your ~/.bashrc file."
-    end
+* Maybe have different dotfile builders, in case we automatically add comments
+  to the final file, we can make sure we don't get any syntax errors
+  ```
+  bashrc do |f|
+    f.incl 'bash/rbenv.bashrc'
   end
-end
-```
+
+  # THIS IS ACTUALLY SO MUCH NICER
+  # it's just a function that takes a block and when the block is processed the
+  # incl or whatever methods will read in the files, but the nice part is, at
+  # the end of processing the block (1 LOC) we can save the file right away,
+  # instead of having to call .save manually
+  ```
 
 ## Goals
 
