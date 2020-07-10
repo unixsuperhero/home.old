@@ -9,6 +9,38 @@ and remodel it **
 
 * `git clone https://github.com/jahendrie/shalarm`
 
+* Possibly setup a bash script for a bunch of:
+  * `cat bash/git/log.bashrc`
+  * `cat bash/git/commit.bashrc`
+  * `cat bash/git/fetch.bashrc`
+* Or a ruby script:
+```
+class Compiler
+  class << self
+    def included_files
+      @included_data ||= []
+    end
+
+    def incl(relative_filename)
+      rel_file = File.join(Dir.pwd, relative_filename)
+      printf "SKIPPING "%s" ... file not found\n", rel_file
+      included_files << IO.read(rel_file)
+    end
+
+    def save
+      save_as 'compiled.bashrc'
+    end
+
+    def save_as(outfile)
+      printf "Saved "%s", either move it to your home directory and rename", outfile
+      printf "it\n\n\t"
+      printf "~/.bashrc\n\n"
+      printf "or include in your ~/.bashrc file."
+    end
+  end
+end
+```
+
 ## Goals
 
 * make this repo super modular
