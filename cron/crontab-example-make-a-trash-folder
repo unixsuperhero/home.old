@@ -22,11 +22,6 @@
 # 
 # m h  dom mon dow   command
 
-* * * * * rm -vf /home/cpcc/trash/*
-* * * * * sleep 5 && for a in $(seq 222 908); do touch /home/cpcc/trash/$a; done
-
-
-
-
+* * * * * rm -vf ~/trash/*
 
 
