@@ -10,14 +10,14 @@ and remodel it **
 * `git clone https://github.com/jahendrie/shalarm`
 
 * **USE YAML TO DEFINE WHAT FILES TO INCLUDE IN FINAL FILE**
-* Possibly setup a bash script with a bunch of:
-  * `cat bash/git/log.bashrc`
-  * `cat bash/git/commit.bashrc`
-  * `cat bash/git/fetch.bashrc`
-* ...instead of the ruby build.rb script.
+  * Possibly setup a bash script with a bunch of:
+    * `cat bash/git/log.bashrc`
+    * `cat bash/git/commit.bashrc`
+    * `cat bash/git/fetch.bashrc`
+  * ...instead of the ruby build.rb script.
 
-* Maybe have different dotfile builders, in case we automatically add comments
-  to the final file, we can make sure we don't get any syntax errors
+  * Maybe have different dotfile builders, in case we automatically add comments
+    to the final file, we can make sure we don't get any syntax errors
   ```
   bashrc do |f|
     f.incl 'bash/rbenv.bashrc'
