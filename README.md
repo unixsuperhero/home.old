@@ -9,6 +9,7 @@ and remodel it **
 
 * `git clone https://github.com/jahendrie/shalarm`
 
+* **USE YAML TO DEFINE WHAT FILES TO INCLUDE IN FINAL FILE**
 * Possibly setup a bash script with a bunch of:
   * `cat bash/git/log.bashrc`
   * `cat bash/git/commit.bashrc`
