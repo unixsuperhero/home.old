@@ -182,7 +182,7 @@ xterm*|rxvt*)
     ;;
 esac
 
-export PATH="/home/linuxbrew/.linuxbrew/bin:/home/toyota/bin:/home/toyota/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+# export PATH="/home/linuxbrew/.linuxbrew/bin:/home/toyota/bin:/home/toyota/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 
 test -e ~/git.bashrc && source ~/git.bashrc
 
@@ -227,20 +227,100 @@ else
   export TERM="screen-256color"
 fi
 
-alias im=vim
 
 export PATH="$HOME/.rbenv/bin:$PATH"
-export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 eval "$(rbenv init -)"
 
-alias _rails="bundle exec rails"
+export PATH="$HOME/bin:$PATH"
 
-export AWS_ACCESS="AKIAIH7W7SZGFIKLSY7A"
-export AWS_SECRET="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"weq3
-export S3_ASSET_URL="https://s3.us-east-2.amazonaws.com"
-export S3_BUCKET="robflo-temp-prod"
+function gss() {
+  if test $# -gt 0
+  then
+    (for a in $@; do
+      git status -s | sed 's/...\(.* -> \)\{0,1\}//' | \egrep -i --color=never "$a"
+    done) | sort -u
+  else
+    git status -s | sed 's/...\(.* -> \)\{0,1\}//'
+  fi
+}
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# git aliases
+
+alias gaa="git add --all"
+alias gai="git add -i"
+alias gb='git branch'
+alias gc='git commit'
+alias gco='git co'
+alias gd='git diff'
+alias gdc='git diff --cached'
+alias gp='git push'
+alias gpr='git pull --rebase'
+alias grv='git remote -v'
+alias gst='git status -s'
+alias glod='git log --oneline --decorate --graph'
+alias glodd='git log --oneline --decorate --graph -10'
+alias glog='git log --oneline --decorate --graph --name-status'
+alias glogg='git log --oneline --decorate --graph --name-status -10'
+alias glr='git log --oneline --decorate --left-right'
+
+alias gchist='(cd; git add */history; git commit -m "updating history files")'
+alias gchistory='(cd; git add */history; git commit -m "updating history files")'
+
+function gac() {
+  git add --all
+
+  if test ${#@} -gt 0; then
+    git commit -m "$@"
+  else
+    git commit
+  fi
+}
+
+export COLOR_RED="\033[0;31m"
+export COLOR_YELLOW="\033[0;33m"
+export COLOR_GREEN="\033[0;32m"
+export COLOR_OCHRE="\033[38;5;95m"
+export COLOR_BLUE="\033[0;34m"
+export COLOR_WHITE="\033[0;37m"
+export COLOR_RESET="\033[0m"
+
+function git_prompt_info() {
+  if git rev-parse --show-toplevel &>/dev/null
+  then
+    cr=`git rev-parse --symbolic-full-name HEAD`
+    cb=${cr/refs?heads?/}
+    statuses=$(ruby -e 'printf `git status -s`.lines.each.flat_map{|l| l[/^.../].strip.chars }.sort.uniq.join')
+    printf '\033[1;33m[\033[0;33m%s\033[0m %s(%s)\033[1;33m]\033[0m' $cb $(git_color) $statuses
+  fi
+}
+
+function git_color {
+  local git_status="$(git status 2> /dev/null)"
+
+  if [[ $git_status =~ "Changes not staged" ]]; then
+    echo -e $COLOR_OCHRE
+  elif [[ $git_status =~ "Untracked files" ]]; then
+    echo -e $COLOR_RED
+  elif [[ $git_status =~ "Your branch is ahead of" ]]; then
+    echo -e $COLOR_YELLOW
+  elif [[ $git_status =~ "nothing to commit" ]]; then
+    echo -e $COLOR_GREEN
+  else
+    echo -e $COLOR_BLUE
+  fi
+}
+
+### copy of old ps1:
+### ----------------
+# export PS1="${debian_chroot:+($debian_chroot)}\[\e[1;32m\]\u@\h\[\e[0m\]:\[\e[1;34m\]\w\[\e[0m\]\$ "
+export PS1="\[\e[1;32m\]\u@\h\[\e[0m\]:\[\e[1;34m\]\w\[\e[0m\] \$(git_prompt_info)\[\e[0m\] $ "
+
+if test -z $TMUX; then
+  tmux new -A -s home
+else
+  export TERM="screen-256color"
+fi
+
 
 # if [ -e ~/latest-vim-session.vim ]
 # then
